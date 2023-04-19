@@ -5,7 +5,6 @@ import { ICoreOptions } from "web3modal";
 import { JsonRpcProvider, Resolver, getDefaultProvider } from "@ethersproject/providers";
 import { IProviderOptions } from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 
 import { switchChainOnMetaMask } from "./metamask";
 
@@ -23,35 +22,13 @@ type WalletContextType = {
 };
 
 export const SUPPORTED_NETWORKS: NetworkConfig = {
-  "0x1": {
-    chainId: "0x1",
-    name: "Mainnet",
-    symbol: "ETH",
-    explorer: "https://etherscan.io",
-    rpc: "https://mainnet.infura.io/v3/<your infura project id>",
-  },
-
-  "0x539": {
-    chainId: "0x539",
-    name: "Hardhat",
-    symbol: "ETH",
-    explorer: "http://localhost:1234",
-    rpc: "http://localhost:8545",
-  },
-  "0x89": {
-    chainId: "0x89",
-    name: "Polygon",
-    symbol: "MATIC",
-    explorer: "https://polygonscan.com",
-    rpc: "https://polygon-rpc.com/",
-  },
-  "0x13881": {
-    chainId: "0x13881",
-    name: "Mumbai Testnet",
-    symbol: "MATIC",
-    explorer: "https://mumbai.polygonscan.com",
-    rpc: "https://matic-mumbai.chainstacklabs.com",
-  },
+  "0x64": {
+    chainId: "0x64",
+    name: "Gnosis Chain",
+    symbol: "xDai",
+    explorer: "https://blockscout.com/xdai/mainnet/",
+    rpc: "https://rpc.gnosischain.com/",
+  }
 };
 
 export const providerOptions: IProviderOptions = {
@@ -60,24 +37,10 @@ export const providerOptions: IProviderOptions = {
     options: {
       infuraId: "8043bb2cf99347b1bfadfb233c5325c0",
       rpc: {
-        1: SUPPORTED_NETWORKS["0x1"].rpc,
-        // 4: SUPPORTED_NETWORKS["0x4"].rpc,
-        1337: SUPPORTED_NETWORKS["0x539"].rpc,
+        100: SUPPORTED_NETWORKS["0x64"].rpc,
       },
     },
-  },
-  walletlink: {
-    package: CoinbaseWalletSDK,
-    options: {
-      appName: "QFI",
-      infuraId: "8043bb2cf99347b1bfadfb233c5325c0",
-      rpc: {
-        1: SUPPORTED_NETWORKS["0x1"].rpc,
-        // 4: SUPPORTED_NETWORKS["0x4"].rpc,
-        1337: SUPPORTED_NETWORKS["0x539"].rpc,
-      },
-    },
-  },
+  }
   // .. Other providers
 };
 
@@ -179,7 +142,7 @@ export const WalletProvider: React.FC<{
         handleErrorEvent &&
           handleErrorEvent({
             code: "UNSUPPORTED_NETWORK",
-            message: `Network not supported, please switch to one of the supported networks`,
+            message: `Network not supported, please switch to Gnosis Chain Network`,
           });
         return;
       }
@@ -291,87 +254,6 @@ export const formatAddress = (address: string | null | undefined, ensName?: stri
   else return "";
 };
 
-export const useENS = ({
-  ens,
-  address,
-}: {
-  ens?: string;
-  address?: string;
-}): {
-  ens?: string;
-  address?: string;
-  resolver?: Resolver;
-  avatar?: string;
-  getAddress: (ens: string) => Promise<string | undefined>;
-  getEns: (address: string) => Promise<string | undefined>;
-  loading: boolean;
-} => {
-  const [localENS, setLocalENS] = useState<string>();
-  const [localAddress, setLocalAddress] = useState<string>();
-  const [avatar, setAvatar] = useState<string>();
-  const [resolver, setResolver] = useState<Resolver>();
-  const [loading, setLoading] = useState(false);
-
-  const { isConnected } = useWallet();
-  const localProvider = getDefaultProvider();
-
-  const populateENS = async () => {
-    if (!localProvider) return;
-
-    try {
-      setLoading(true);
-      if (ens) {
-        const resolver = await (localProvider as JsonRpcProvider).getResolver(ens);
-        const address = resolver?.address;
-        const avatar = await resolver?.getAvatar();
-        setLocalENS(ens);
-        setLocalAddress(address);
-        setAvatar(avatar?.url);
-        setResolver(resolver as Resolver);
-        return;
-      }
-      if (address) {
-        const ens = await (localProvider as JsonRpcProvider).lookupAddress(address);
-        const resolver = await (localProvider as JsonRpcProvider).getResolver(ens ?? "");
-        const avatar = await resolver?.getAvatar();
-        setLocalENS(ens ?? undefined);
-        setLocalAddress(address);
-        setAvatar(avatar?.url);
-        return;
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    populateENS();
-  }, [isConnected]);
-
-  const getAddress = async (ens: string) => {
-    const resolver = await (localProvider as JsonRpcProvider).getResolver(ens);
-    const address = resolver?.address;
-    return address;
-  };
-
-  const getEns = async (address: string) => {
-    const ens = await (localProvider as JsonRpcProvider).lookupAddress(address);
-    return ens ?? undefined;
-  };
-
-  return {
-    ens: localENS,
-    address: localAddress,
-    avatar,
-    resolver,
-    getAddress,
-    getEns,
-    loading,
-  };
-};
-
 /**
  * Gets the wallet context from the wallet provider
  * @category Hooks
@@ -380,6 +262,10 @@ export const useWallet = (): WalletContextType => useContext(WalletContext);
 
 export const nameToChainId = (name: string): string | undefined => {
   switch (name) {
+    case "xdai":
+      return "0x64";
+    case "polygon":
+      return "0x89";
     case "Mainnet":
       return "0x1";
     case "Hardhat":

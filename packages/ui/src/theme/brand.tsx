@@ -13,7 +13,6 @@ export const defaultTheme: {
   mode: string;
   headingFont: string;
   bodyFont: string;
-  monoFont: string;
   avatarImg: string;
   bgImg: string;
   text: string;
@@ -24,13 +23,13 @@ export const defaultTheme: {
   primaryAlpha: rgba("#10153d", 0.9),
   secondary: rgba("#10153d", 0.5),
   secondaryAlpha: rgba("#10153d", 0.75),
-  background: "#0d152e",
-  backgroundAlpha: "#03061B",
+  background: "#0D1429",
+  backgroundAlpha: "#0D1429",
   backgroundOverlayOpacity: 0.75,
   mode: "#FFFFFF",
-  headingFont: "Helvetica",
-  bodyFont: "Helvetica",
-  monoFont: "Times",
+  headingFont: "Space Grotesk",
+  bodyFont: "Space Grotesk",
+
   avatarImg: BrandImg,
   bgImg: BgImg,
   text: "#FFFFFF",
