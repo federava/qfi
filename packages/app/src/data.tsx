@@ -263,6 +263,18 @@ let projects = [
     "logoCdnUrl": "https://taikai.azureedge.net/PttdD3VAebbtx_n1Ij7cHuNTrehMK5uWFdD7_pWw790/rs:fit:350:0:0/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3RhaWthaS1zdG9yYWdlL2ltYWdlcy85MjY5ZmY5MC1mN2NkLTExZWQtOGU2YS05NTM4YmIzNDQ2MjFOb1BzSU5FUV80MDB4NDAwLmpwZw",
     "bannerImageLink": "https://taikai.azureedge.net/-yOBorFQoy-NlmS12lNlH5Zc5pI1GaFjqNivhd3lda8/rs:fit:1920:0:0/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3RhaWthaS1zdG9yYWdlL2ltYWdlcy85NThjNGUzMC1mN2NkLTExZWQtOGU2YS05NTM4YmIzNDQ2MjFRbVZDTFdhekpvYWNvclRRaDUzejh2VWNRVWVmTTNQUkJkeTFuQml0M2Z4bkJlLnBuZw",
     "id": "22"
+  },
+  {
+    "recipientId": 23,
+    "projectName": "SolarPunks",
+    "tagline": "Trust-less solar communities: own, invest, contribute.",
+    "description": "We aim to empower individuals to establish trust-less local energy communities. By implementing a crypto anchor on each solar panel, we can verify the energy generated, enabling a trustworthy and accessible method for everyone to invest and earn. This approach enables everyone to contribute to a greener future.",
+    "ethereumAddress": "0x1389427Cf229cfD6A3a67eC03A1CFb68A9F712DF",
+    "website": "https://github.com/x409/ZKunity",
+    "thumbnailImageLink": "https://i.ibb.co/gr9ZQJB/Screenshot-2023-05-25-at-19-13-46.png",
+    "logoCdnUrl": "https://i.ibb.co/gr9ZQJB/Screenshot-2023-05-25-at-19-13-46.png",
+    "bannerImageLink": "https://i.ibb.co/6P5mzwp/Screenshot-2023-05-25-at-19-15-53.png",
+    "id": "23"
   }
 ]
 
